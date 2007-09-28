@@ -1,15 +1,15 @@
 #summary The Google URL Parsing and Canonicalization Library
 
-This library is designed for client and server programs that require URL parsing, canonicalization, or resolving.
+This library is designed for Unix and Windows client and server programs that require URL parsing, canonicalization, or resolving.
 
 = Features =
 
- * Fast: hundreds of thousands of typical URLs can be parsed and canonicalized per second on a modern CPU. It is much faster than, for example, calling WinInet's corresponding functions.
+ * Fast: hundreds of thousands of typical URLs can be parsed and canonicalized per second on a modern CPU.
 
-   * Compatible: When possible, this library has strived for IE7 compatability. It supports Unix-style file URLs, as well as the more complex rules for Window file URLS.
+   * Compatible: When possible, this library has strived for IE7 compatability. It supports Unix-style file URLs, as well as the more complex rules for Window file URLs.
 
-   * Complete: This library is more complete than most other applications such as IE7, Firefox, and Safari.
+   * Complete: This library is among the most complete implementations available.
 
-   * Easily embededable: Unlike most implementations of URL parsing and canonicalization, this library is designed to be embedded into another application. There is no dependency on STL (with the exception of the example URL object), and the only external dependencies are on character set conversion and IDN for which a convenient porting layer is provided.
+   * Easily embededable: Unlike most implementations of URL parsing and canonicalization, this library is designed to be embedded into another application.
 
 Please see the README.txt file in the root directory of the source distribution for more.

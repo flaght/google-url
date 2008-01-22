@@ -683,6 +683,9 @@ TEST(URLCanonTest, Path) {
       // Hashes found in paths (possibly only when the caller explicitly sets
       // the path on an already-parsed URL) should be escaped.
     {"/foo#bar", L"/foo#bar", "/foo%23bar", url_parse::Component(0, 10), true},
+      // %7f should be allowed and %3D should not be unescaped (these were wrong
+      // in a previous version).
+    {"/%7Ffp3%3Eju%3Dduvgw%3Dd", L"/%7Ffp3%3Eju%3Dduvgw%3Dd", "/%7Ffp3%3Eju%3Dduvgw%3Dd", url_parse::Component(0, 24), true},
 
     // ----- encoding tests -----
       // Basic conversions
@@ -889,8 +892,6 @@ TEST(URLCanonTest, CanonicalizeStandardURL) {
 
       // Busted refs shouldn't make the whole thing fail.
     {"http://www.google.com/asdf#\xc2", "http://www.google.com/asdf#\xef\xbf\xbd", true},
-
-    {"http://images.photo.walgreens.com/232323232%7Ffp3%3Eju%3Dduvgw%3Dduvgwu%3Ekpcjg%3E33%3A4%3B%3E%3B3xht%3Eulqq2%3Eerpik%3Ei4233%3E4%3A4%3Ekpcjg42%3B3%3C%3B3xhtvkrp3erpikj33244%3A41rqi", "", true}
   };
 
   for (int i = 0; i < ARRAYSIZE(cases); i++) {

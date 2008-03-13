@@ -1303,9 +1303,6 @@ TEST(URLCanonTest, ResolveRelativeURL) {
     bool succeed_resolve;  // Whether we expect ResolveRelativeURL to succeed.
     const char* resolved;  // What we expect in the result when resolving.
   } rel_cases[] = {
-    {"http://host/a", true, false, "//", true, true, false, "http://"},
-
-
       // Basic absolute input.
     {"http://host/a", true, false, "http://another/", true, false, false, NULL},
     {"http://host/a", true, false, "http:////another/", true, false, false, NULL},

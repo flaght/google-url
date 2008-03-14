@@ -1364,7 +1364,7 @@ TEST(URLCanonTest, ResolveRelativeURL) {
     {"http://host/a", true, false, "//another/path?query#ref", true, true, true, "http://another/path?query#ref"},
     {"http://host/a", true, false, "///another/path", true, true, true, "http://another/path"},
     {"http://host/a", true, false, "//Another\\path", true, true, true, "http://another/path"},
-    {"http://host/a", true, false, "//", true, true, false, "http://"},
+    {"http://host/a", true, false, "//", true, true, false, "http:"},
       // IE will also allow one or the other to be a backslash to get the same
       // behavior.
     {"http://host/a", true, false, "\\/another/path", true, true, true, "http://another/path"},

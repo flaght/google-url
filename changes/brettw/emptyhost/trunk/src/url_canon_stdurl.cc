@@ -72,17 +72,17 @@ bool DoCanonicalizeStandardURL(const URLComponentSource<CHAR>& source,
   bool success = CanonicalizeScheme(source.scheme, parsed.scheme,
                                     output, &new_parsed->scheme);
 
-  // Only write the authority separators when we have a scheme.
-  if (parsed.scheme.is_valid()) {
-    output->push_back('/');
-    output->push_back('/');
-  }
-
   // Authority (username, password, host, port)
-  bool have_authority = false;
+  bool have_authority;
   if (parsed.username.is_valid() || parsed.password.is_valid() ||
       parsed.host.is_nonempty() || parsed.port.is_valid()) {
     have_authority = true;
+
+    // Only write the authority separators when we have a scheme.
+    if (parsed.scheme.is_valid()) {
+      output->push_back('/');
+      output->push_back('/');
+    }
 
     // User info: the canonicalizer will handle the : and @.
     success &= CanonicalizeUserInfo(source.username, parsed.username,
@@ -102,6 +102,7 @@ bool DoCanonicalizeStandardURL(const URLComponentSource<CHAR>& source,
                                 output, &new_parsed->port);
   } else {
     // No authority, clear the components.
+    have_authority = false;
     new_parsed->host.reset();
     new_parsed->username.reset();
     new_parsed->password.reset();

@@ -540,23 +540,72 @@ bool DoExtractQueryKeyValue(const CHAR* spec,
 }  // namespace
 
 int Parsed::Length() const {
-  if (ref.is_nonempty())
+  if (ref.is_valid())
     return ref.end();
-  if (query.is_nonempty())
-    return query.end();
-  if (path.is_nonempty())
-    return path.end();
-  if (port.is_nonempty())
-    return port.end();
-  if (host.is_nonempty())
-    return host.end();
-  if (password.is_nonempty())
-    return password.end();
-  if (username.is_nonempty())
-    return username.end();
-  if (scheme.is_nonempty())
-    return scheme.end();
-  return 0;
+  return CountCharactersBefore(REF, false);
+}
+
+int Parsed::CountCharactersBefore(ComponentType type,
+                                  bool include_delimiter) const {
+  if (type == SCHEME)
+    return scheme.begin;
+
+  // There will be some characters after the scheme like "://" and we don't
+  // know how many. Search forwards for the next thing until we find one.
+  int cur = 0;
+  if (scheme.is_valid())
+    cur = scheme.end() + 1;  // Advance over the ':' at the end of the scheme.
+
+  if (username.is_valid()) {
+    if (type <= USERNAME)
+      return username.begin;
+    cur = username.end() + 1;  // Advance over the '@' or ':' at the end.
+  }
+
+  if (password.is_valid()) {
+    if (type <= PASSWORD)
+      return password.begin;
+    cur = password.end() + 1;  // Advance over the '@' at the end.
+  }
+
+  if (host.is_valid()) {
+    if (type <= HOST)
+      return host.begin;
+    cur = host.end();
+  }
+
+  if (port.is_valid()) {
+    if (type < PORT || (type == PORT && include_delimiter))
+      return port.begin - 1;  // Back over delimiter.
+    if (type == PORT)
+      return port.begin;  // Don't want delimiter counted.
+    cur = port.end();
+  }
+
+  if (path.is_valid()) {
+    if (type <= PATH)
+      return path.begin;
+    cur = path.end();
+  }
+
+  if (query.is_valid()) {
+    if (type < QUERY || (type == QUERY && include_delimiter))
+      return query.begin - 1;  // Back over delimiter.
+    if (type == QUERY)
+      return query.begin;  // Don't want delimiter counted.
+    cur = query.end();
+  }
+
+  if (ref.is_valid()) {
+    if (type == REF && !include_delimiter)
+      return ref.begin;  // Back over delimiter.
+
+    // When there is a ref and we get here, the component we wanted was before
+    // this and not found, so we always know the beginning of the ref is right.
+    return ref.begin - 1;  // Don't want delimiter counted.
+  }
+
+  return cur;
 }
 
 bool ExtractScheme(const char* url, int url_len, Component* scheme) {

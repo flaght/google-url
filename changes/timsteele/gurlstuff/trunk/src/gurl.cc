@@ -254,6 +254,8 @@ GURL GURL::GetOrigin() const {
   if (!has_username() && !has_password())
     return GetWithEmptyPath();
 
+  // This doesn't make sense for invalid or nonstandard URLs, so return
+  // the empty URL
   if (!is_valid_ || !SchemeIsStandard())
     return GURL();
   

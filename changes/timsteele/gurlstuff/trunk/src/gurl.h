@@ -183,9 +183,10 @@ class GURL {
   // A helper function that is equivalent to clearing any username and password,
   // replacing the path with a slash, and clearing everything after that. If
   // this URL is not a standard URL, then the result will be an empty,
-  // invalid GURL.
+  // invalid GURL. If the URL has neither username nor password, this
+  // degenerates to GetWithEmptyPath().
   //
-  // It is an error to get the authority on an invalid URL. The result
+  // It is an error to get the origin of an invalid URL. The result
   // will be the empty URL.
   GURL GetOrigin() const;
 

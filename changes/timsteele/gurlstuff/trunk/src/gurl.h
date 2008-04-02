@@ -181,8 +181,9 @@ class GURL {
   GURL GetWithEmptyPath() const;
 
   // A helper function that is equivalent to clearing any username and password,
-  // replace the path with a slash, and clear everything after that. If this URL
-  // is not a standard URL, then the result will be an empty, invalid GURL.
+  // replacing the path with a slash, and clearing everything after that. If
+  // this URL is not a standard URL, then the result will be an empty,
+  // invalid GURL.
   //
   // It is an error to get the authority on an invalid URL. The result
   // will be the empty URL.

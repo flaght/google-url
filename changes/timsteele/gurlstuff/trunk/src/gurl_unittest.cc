@@ -187,7 +187,7 @@ TEST(GURLTest, GetOrigin) {
  } cases[] = {
    {"http://www.google.com", "http://www.google.com/"},
    {"javascript:window.alert(\"hello,world\");", ""},
-   {"http://user:pass@www.google.com:21/blah", "http://www.google.com:21/"},
+   {"http://user:pass@www.google.com:21/blah#baz", "http://www.google.com:21/"},
    {"http://user@www.google.com", "http://www.google.com/"},
    {"http://:pass@www.google.com", "http://www.google.com/"},
    {"http://:@www.google.com", "http://www.google.com/"},

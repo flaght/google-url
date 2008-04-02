@@ -251,20 +251,20 @@ GURL GURL::ReplaceComponents(
 }
 
 GURL GURL::GetOrigin() const {
-  if (!has_username() && !has_password())
-    return GetWithEmptyPath();
-
   // This doesn't make sense for invalid or nonstandard URLs, so return
   // the empty URL
   if (!is_valid_ || !SchemeIsStandard())
     return GURL();
+
+  GURL result(GetWithEmptyPath());
+  if (!has_username() && !has_password())
+    return result;
   
   url_canon::Replacements<UTF16Char> replacements;
   replacements.ClearUsername();
   replacements.ClearPassword();
-  replacements.ClearPath();
 
-  return ReplaceComponents(replacements);
+  return result.ReplaceComponents(replacements);
 }
 
 GURL GURL::GetWithEmptyPath() const {

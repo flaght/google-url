@@ -256,7 +256,7 @@ GURL GURL::GetOrigin() const {
   if (!is_valid_ || !SchemeIsStandard())
     return GURL();
   
-  url_canon::Replacements<UTF16Char> replacements;
+  url_canon::Replacements<char> replacements;
   replacements.ClearUsername();
   replacements.ClearPassword();
   replacements.ClearPath();

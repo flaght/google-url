@@ -180,7 +180,8 @@ class GURL {
   // will be the empty URL.
   GURL GetWithEmptyPath() const;
 
-  // A helper function that is equivalent to clearing any username and password,
+  // A helper function to return a GURL containing just the scheme, host,
+  // and port from a URL. Equivalent to clearing any username and password,
   // replacing the path with a slash, and clearing everything after that. If
   // this URL is not a standard URL, then the result will be an empty,
   // invalid GURL. If the URL has neither username nor password, this

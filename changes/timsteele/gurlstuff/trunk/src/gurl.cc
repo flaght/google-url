@@ -255,16 +255,15 @@ GURL GURL::GetOrigin() const {
   // the empty URL
   if (!is_valid_ || !SchemeIsStandard())
     return GURL();
-
-  GURL result(GetWithEmptyPath());
-  if (!has_username() && !has_password())
-    return result;
   
   url_canon::Replacements<UTF16Char> replacements;
   replacements.ClearUsername();
   replacements.ClearPassword();
+  replacements.ClearPath();
+  replacements.ClearQuery();
+  replacements.ClearRef();
 
-  return result.ReplaceComponents(replacements);
+  return ReplaceComponents(replacements);
 }
 
 GURL GURL::GetWithEmptyPath() const {

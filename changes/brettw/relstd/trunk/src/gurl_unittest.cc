@@ -167,7 +167,6 @@ TEST(GURLTest, Resolve) {
     {"http://www.google.com/foo#bar", "#com", true, "http://www.google.com/foo#com"},
     {"http://www.google.com/", "Https:images.google.com", true, "https://images.google.com/"},
       // Unknown schemes with a "://" should be treated as standard.
-    {"somescheme://", "//foo/", true, "somescheme://foo/"},
     {"somescheme://foo/", "bar", true, "somescheme://foo/bar"},
       // Unknown schemes with no "://" are not standard.
     {"data:blahblah", "http://google.com/", true, "http://google.com/"},

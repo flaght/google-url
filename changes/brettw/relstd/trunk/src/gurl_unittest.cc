@@ -352,3 +352,14 @@ TEST(GURLTest, Newlines) {
 
   // Note that newlines are NOT stripped from ReplaceComponents.
 }
+
+TEST(GURLTest, IsStandard) {
+  GURL a("http:foo/bar");
+  EXPECT_TRUE(a.IsStandard());
+
+  GURL b("foo:bar/baz");
+  EXPECT_FALSE(b.IsStandard());
+
+  GURL c("foo://bar/baz");
+  EXPECT_TRUE(c.IsStandard());
+}

@@ -1,6 +1,6 @@
 #summary The Google URL Parsing and Canonicalization Library
 
-This library is designed for Unix and Windows client and server programs that require URL parsing, canonicalization, or resolving.
+This C++ library is designed for Unix and Windows client and server programs that require URL parsing, canonicalization, or resolving.
 
 = Features =
 
@@ -13,3 +13,9 @@ This library is designed for Unix and Windows client and server programs that re
    * Easily embededable: Unlike most implementations of URL parsing and canonicalization, this library is designed to be embedded into another application.
 
 Please see the README.txt file in the root directory of the source distribution for more.
+
+= Other ports =
+
+I can't vouch for these, but you may want to give them a look if you need that functionality.
+
+   * Perl: http://search.cpan.org/~mellery/URL-Google-GURL-0.01/lib/URL/Google/GURL.pm
